@@ -3,6 +3,7 @@ using RestSharp;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using GHRepoAnalysisLib;
+
 public class RepoDataModel
 {
     public int id { get; set; }

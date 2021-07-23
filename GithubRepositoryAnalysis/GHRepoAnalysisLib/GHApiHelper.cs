@@ -10,33 +10,18 @@ namespace GHRepoAnalysisLib
         
         public static RestClient GithubApiClient {get; set;}
 
-        public string GHUserName { get; private set; }
-        
-        public string GHRepoName { get; private set; }
-
-        private String _gHUserName;
-        private String _gHRepoName;
-
         const string BaseUrl = "https://api.github.com/repos/";
-        public  RestClient InitializeClient()
+        public static RestClient InitializeClient()
         {
             GithubApiClient = new RestClient(BaseUrl);
 
             GithubApiClient.AddDefaultHeader("ApiHeader", "application/vnd.github.v3+json");
-
-            var reporequest = new RestRequest("{UserName}/{RepoName}").AddUrlSegment("UserName" , GHUserName );
-         reporequest.AddUrlSegment("RepoName" , GHRepoName );
+            
             return GithubApiClient;
             
 
         }
 
-        public GHApiHelper(string gHRepoName , string gHUserName)
-        {
-            GHUserName= gHUserName;
-            GHUserName= gHRepoName;
-        }
-        
         
         public static async Task<IRestResponse<T>> ExecuteAsyn<T> ( IRestRequest gHRequest ) where T: class , new()
         {
