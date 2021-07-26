@@ -5,8 +5,10 @@ using Newtonsoft.Json;
 using GHRepoAnalysisLib;
 
 
-public class IssueModel
-{   
-    // It is not yet determined
-    public string[] Root { get; set; }
+
+
+public class BranchesModel
+{
+    public string name { get; set; }
+    
 }

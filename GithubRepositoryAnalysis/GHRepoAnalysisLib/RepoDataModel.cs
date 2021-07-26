@@ -16,12 +16,11 @@ public class RepoDataModel
     public string description { get; set; }
     public string Html_Url { get; set; }
     public string language { get; set; }
-    public uint forks_count { get; set; }
-    public uint stargazers_count { get; set; }
+    public int forks_count { get; set; }
+    public int stargazers_count { get; set; }
 
-    public uint watchers_count { get; set; }
+    public int watchers_count { get; set; }
 
-    public uint open_issues_count { get; set; }
     public string visibility { get; set; }
     public DateTime created_at { get; set; }
     public DateTime updated_at { get; set; }

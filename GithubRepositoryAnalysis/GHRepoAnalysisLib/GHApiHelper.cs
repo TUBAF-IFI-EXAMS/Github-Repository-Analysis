@@ -1,7 +1,13 @@
 ﻿using System;
 using RestSharp;
-using System.Threading;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using System.Threading.Tasks;
+using CsvHelper;
+using System.IO;
+using CsvHelper.Configuration;
+ using System.Globalization;
+ using GHRepoAnalysisLib;
 
 namespace GHRepoAnalysisLib
 {
@@ -23,7 +29,7 @@ namespace GHRepoAnalysisLib
         }
 
         
-        public static async Task<IRestResponse<T>> ExecuteAsyn<T> ( IRestRequest gHRequest ) where T: class , new()
+        public static async Task<IRestResponse<T>> ExecuteAsynRequest<T> ( IRestRequest gHRequest ) where T: class , new()
         {
             var taskCompleatonSource = new TaskCompletionSource<IRestResponse<T>>();
 
@@ -38,6 +44,23 @@ namespace GHRepoAnalysisLib
 
             taskCompleatonSource.SetResult(response);   
             return await taskCompleatonSource.Task;
+        }
+        
+        public void RepoDataToCsv()
+        {   
+            List<ModelDataLoder> repoData ;
+            var csvFilePath=Path.Combine(Environment.CurrentDirectory , $"Repository_infos.csv");
+
+            using(StreamWriter streamWriter= new StreamWriter(csvFilePath))
+            {
+                using(var csvWriter = new CsvWriter(streamWriter, CultureInfo.InvariantCulture))
+                {
+                    repoData= new List<ModelDataLoder>();
+                    csvWriter.Context.RegisterClassMap<RepoDataCsvMap>();
+                    csvWriter.WriteRecords(repoData);
+                    
+                }
+            }
         }
 
 
